@@ -6,10 +6,21 @@ pub const ANCHOR_DISCRIMINATOR_SIZE:usize = 8;
 
 #[program]
 pub mod favorites_program_solana {
+
     use super::*;
 
-    pub fn set_favorites(ctx: Context<SetFavorites>) -> Result<()> {
-        ctx.accounts.favorites.number = 50;
+    pub fn set_favorites(
+        ctx: Context<SetFavorites>,
+        number: u64,
+        color: String,
+        hobbies: Vec<String>
+    ) -> Result<()> {
+        msg!("Greetings from {}", ctx.program_id);
+        ctx.accounts.favorites.set_inner(Favourites{
+            number,
+            color,
+            hobbies
+        });
         Ok(())
     }
 }
