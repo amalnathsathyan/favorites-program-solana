@@ -7,10 +7,18 @@ describe("favorites-program-solana", () => {
   anchor.setProvider(anchor.AnchorProvider.env());
 
   const program = anchor.workspace.FavoritesProgramSolana as Program<FavoritesProgramSolana>;
+  const user = anchor.web3.Keypair.generate();
 
-  it("Is initialized!", async () => {
+  it("It set's the favorites!", async () => {
     // Add your test here.
-    const tx = await program.methods.initialize().rpc();
+    const number = new anchor.BN('25');
+    const color = "orange"
+    const hobbies = ["reading","skipping"]
+    const tx = await program.methods.setFavorites(
+      number,
+      color,
+      hobbies
+    ).rpc();
     console.log("Your transaction signature", tx);
   });
 });
